@@ -5,15 +5,14 @@ const renderer = require('vue-server-renderer').createRenderer({
   template: require('fs').readFileSync('./templates/index.template.html', 'utf-8')
 })
 
-const createApp = require('./app')
-
+const createApp = require('./src/app')
 
 server.get('*', (req, res) => {
   const context = {
     url: req.url
   }
 
-  const app = createApp(context)
+  const { app } = createApp()
 
   renderer.renderToString(app, (err, html) => {
     res.end(html)
