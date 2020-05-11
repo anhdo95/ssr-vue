@@ -14,7 +14,15 @@ server.get('*', (req, res) => {
     template: `<div>The visited URL is: {{ url }}</div>`
   })
 
-  renderer.renderToString(app, (err, html) => {
+  context = {
+    title: 'SSR Vue Practice',
+    meta: `
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    `
+  }
+
+  renderer.renderToString(app, context, (err, html) => {
     console.log('html', html)
 
     res.end(html)
