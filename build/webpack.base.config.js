@@ -7,6 +7,14 @@ module.exports = {
     publicPath: '/dist/',
     filename: '[name].[chunkhash].js'
   },
+
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      '@': path.resolve(__dirname, '../src')
+    },
+  },
+
   module: {
     rules: [
       {
@@ -37,6 +45,7 @@ module.exports = {
       },
     ]
   },
+
   plugins: [
     new VueLoaderPlugin()
   ]

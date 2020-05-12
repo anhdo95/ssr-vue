@@ -11,11 +11,17 @@ const renderer = createBundleRenderer(serverBundle, {
 })
 
 server.get('*', (req, res) => {
-  renderer.renderToString((error, html) => {
-    console.log('html', html)
+  const context = { url: req.url }
 
-    res.end(html)
-  })
+  renderer.renderToString(context)
+    .then((html) => {
+      console.log('html', html)
+
+      res.end(html)
+    })
+    .catch(error => {
+      res.status(error.statusCode || 500).end(error.message || 'Internal Server Error!')
+    })
 })
 
 server.listen(8081)

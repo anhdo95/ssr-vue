@@ -8,9 +8,7 @@ const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 const baseConfig = require('./webpack.base.config')
 
 module.exports = merge(baseConfig, {
-  entry: {
-    server: './src/entry-server.js'
-  },
+  entry: './src/entry-server.js',
 
   target: 'node',
 

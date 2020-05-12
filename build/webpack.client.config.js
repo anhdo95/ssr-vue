@@ -2,6 +2,7 @@
 
 const webpack =  require('webpack')
 const merge = require('webpack-merge')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 
 const baseConfig = require('./webpack.base.config')
@@ -27,6 +28,7 @@ module.exports = merge(baseConfig, {
   },
 
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.VUE_ENV': '"client"'
