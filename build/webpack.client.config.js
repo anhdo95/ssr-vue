@@ -1,6 +1,5 @@
 
 
-const path = require('path')
 const webpack =  require('webpack')
 const merge = require('webpack-merge')
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
@@ -15,6 +14,17 @@ module.exports = merge(baseConfig, {
   target: 'node',
 
   devtool: 'source-map',
+
+  optimization: {
+    splitChunks: {
+      // extract vendor chunks for better caching
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+        }
+      }
+    }
+  },
 
   plugins: [
     new webpack.DefinePlugin({

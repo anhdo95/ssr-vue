@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
+    "start": "npm run webpack:build && node server.js",
+    "start:dev": "npm run webpack:build && nodemon server.js",
     "webpack:client": "webpack --config build/webpack.client.config.js --mode development",
     "webpack:server": "webpack --config build/webpack.server.config.js --mode development",
     "webpack:build": "npm run webpack:client && npm run webpack:server",
@@ -34,6 +34,7 @@
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }
