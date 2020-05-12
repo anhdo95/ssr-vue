@@ -1,22 +1,21 @@
-// Step 1: Create a Vue instance
-const Vue = require('vue')
 const server = require('express')()
-const renderer = require('vue-server-renderer').createRenderer({
-  template: require('fs').readFileSync('./templates/index.template.html', 'utf-8')
+const { createBundleRenderer } = require('vue-server-renderer')
+
+const template = require('fs').readFileSync('./templates/index.template.html', 'utf-8')
+const serverBundle = require('./dist/vue-ssr-server-bundle.json')
+const clientManifest = require('./dist/vue-ssr-client-manifest.json')
+
+const renderer = createBundleRenderer(serverBundle, {
+  template,
+  clientManifest
 })
 
-const createApp = require('./src/app')
-
 server.get('*', (req, res) => {
-  const context = {
-    url: req.url
-  }
+  renderer.renderToString((error, html) => {
+    console.log('html', html)
 
-  const { app } = createApp()
-
-  renderer.renderToString(app, (err, html) => {
     res.end(html)
   })
 })
 
-server.listen(8080)
+server.listen(8081)
